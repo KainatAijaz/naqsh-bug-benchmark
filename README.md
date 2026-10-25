@@ -5,7 +5,7 @@ A benchmark for **AI exploratory testing**. It is a henna-artist marketplace (Re
 > Status: work in progress. Results will be added once the agent runs are complete.
 
 ## Why this exists
-Most AI testing demos show a tool finding a few bugs. This one measures it: how many of the 20 seeded bugs it finds (recall), how many of its reports are real (precision), how consistent it is across runs, and what it costs.
+Most AI testing demos show a tool finding a few bugs. This one measures it: how many of the 19 scored seeded bugs (a 20th needs Stripe and is excluded) it finds (recall), how many of its reports are real (precision), how consistent it is across runs, and what it costs.
 
 ## How it works
 - `VITE_BUGS` switches the seeded bugs: `none`, `all`, or a list such as `B01,B04,B17`.

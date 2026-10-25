@@ -281,7 +281,9 @@
       ],
       "expected": "total = price x quantity",
       "actual": "total = price (quantity ignored)",
-      "detectable_via": "data"
+      "detectable_via": "data",
+      "excluded": true,
+      "excluded_reason": "Needs Stripe checkout, not configured in this benchmark. Not scored."
     },
     {
       "id": "B17",
@@ -350,5 +352,6 @@
       "actual": "Label points to a non-existent id, so the input has no accessible name from it",
       "detectable_via": "a11y"
     }
-  ]
+  ],
+  "scored_bugs": 19
 }

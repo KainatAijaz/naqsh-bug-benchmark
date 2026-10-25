@@ -27,3 +27,6 @@ These are the requirements; anything that violates them is a defect.
 ## Rules of engagement for the agent
 - Test only the running app (browser). Do not read source code.
 - Report each distinct defect once, with reproducible steps, expected vs actual result, severity and the page URL.
+
+
+Out of scope: payments and Stripe checkout are not configured. Do not test checkout and do not report it as a defect.

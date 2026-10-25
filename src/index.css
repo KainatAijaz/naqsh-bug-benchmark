@@ -1,0 +1,505 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 43% 97%;
+    --foreground: 30 20% 15%;
+
+    --card: 40 43% 97%;
+    --card-foreground: 30 20% 15%;
+
+    --popover: 40 43% 97%;
+    --popover-foreground: 30 20% 15%;
+
+    --primary: 40 55% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 33 20% 90%;
+    --secondary-foreground: 30 20% 15%;
+
+    --muted: 33 25% 93%;
+    --muted-foreground: 30 12% 32%;
+
+    --accent: 40 55% 55%;
+    --accent-foreground: 30 55% 7%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 33 30% 87%;
+    --input: 33 25% 93%;
+    --ring: 40 55% 55%;
+
+    --radius: 0.5rem;
+
+    --deep-plum: 280 30% 3%;
+    --burgundy: 330 50% 8%;
+    --wine: 290 50% 6%;
+    --gold: 40 55% 55%;
+    --gold-glow: 40 60% 62%;
+    --gold-dim: 40 35% 42%;
+    --espresso: 30 55% 7%;
+    --espresso-hover: 27 45% 12%;
+    --warm-border: 33 30% 87%;
+    --divider: 33 25% 84%;
+    --parchment: 40 43% 97%;
+    --text-warm: 40 60% 90%;
+
+    --sidebar-background: 40 43% 97%;
+    --sidebar-foreground: 30 20% 15%;
+    --sidebar-primary: 40 55% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 33 25% 93%;
+    --sidebar-accent-foreground: 30 20% 15%;
+    --sidebar-border: 33 30% 87%;
+    --sidebar-ring: 40 55% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  p {
+    line-height: 1.7;
+  }
+  span, label, a {
+    line-height: 1.6;
+  }
+  ::selection {
+    background: hsl(40 55% 55% / 0.2);
+    color: hsl(30 20% 15%);
+  }
+}
+
+
+@layer components {
+  /* Primary CTA — gold bg + dark text */
+  .btn-gold {
+    @apply relative font-sans text-sm font-semibold tracking-widest uppercase;
+    color: hsl(var(--espresso));
+    background: hsl(var(--gold));
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  .btn-gold:hover {
+    background: hsl(var(--gold-dim));
+    color: #ffffff;
+  }
+
+  /* Hero CTA — gold border, transparent */
+  .btn-hero {
+    @apply font-sans text-sm font-medium tracking-widest uppercase;
+    color: hsl(0 0% 100%);
+    background: transparent;
+    border: 1px solid hsl(var(--gold));
+    padding: 0.875rem 2.5rem;
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .btn-hero:hover {
+    background: hsl(var(--gold));
+    color: hsl(var(--deep-plum));
+  }
+
+  /* Navbar Book Now — gold border style */
+  .btn-nav-book {
+    @apply font-sans font-semibold tracking-[0.1em] uppercase;
+    font-size: 13px;
+    color: hsl(var(--gold));
+    background: transparent;
+    border: 1px solid hsl(var(--gold));
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  .btn-nav-book:hover {
+    background: hsl(var(--gold));
+    color: hsl(var(--deep-plum));
+  }
+
+  /* Pill button */
+  .btn-pill {
+    @apply font-sans text-xs font-semibold tracking-[0.08em] uppercase px-5 py-2 transition-all;
+    transition-duration: 300ms;
+    border-radius: 4px;
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--warm-border));
+    background: transparent;
+  }
+  .btn-pill:hover, .btn-pill.active {
+    background: hsl(var(--gold));
+    color: hsl(0 0% 100%);
+    border-color: hsl(var(--gold));
+  }
+
+  /* Dark pill for dark sections */
+  .btn-pill-dark {
+    @apply font-sans text-xs font-semibold tracking-[0.08em] uppercase px-5 py-2 transition-all;
+    transition-duration: 300ms;
+    border-radius: 4px;
+    color: hsl(var(--gold));
+    border: 1px solid hsl(var(--gold) / 0.4);
+    background: transparent;
+  }
+  .btn-pill-dark:hover, .btn-pill-dark.active {
+    background: hsl(var(--gold));
+    color: hsl(var(--deep-plum));
+    border-color: hsl(var(--gold));
+  }
+
+  /* Occasion pill */
+  .occasion-pill {
+    @apply font-sans text-xs font-medium tracking-wider px-5 py-2.5 transition-all;
+    border-radius: 4px;
+    color: hsl(var(--espresso));
+    border: 1px solid hsl(var(--gold) / 0.5);
+    background: hsl(var(--gold) / 0.08);
+  }
+  .occasion-pill:hover {
+    background: hsl(var(--gold));
+    color: hsl(var(--deep-plum));
+    border-color: hsl(var(--gold));
+  }
+
+  /* Card — light version (white on parchment page) */
+  .card-luxury {
+    background: #ffffff;
+    border: 1px solid hsl(var(--warm-border));
+    border-radius: 8px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-luxury:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--gold) / 0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  }
+
+  /* Card — dark wine version */
+  .card-dark {
+    background: hsl(var(--wine));
+    border: 1px solid hsl(var(--gold) / 0.15);
+    border-radius: 4px;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-dark:hover {
+    transform: translateY(-6px);
+    border-color: hsl(var(--gold) / 0.4);
+    box-shadow: 0 0 30px hsl(var(--gold) / 0.08);
+  }
+
+  /* Thin divider */
+  .gold-line {
+    height: 1px;
+    background: hsl(var(--divider));
+  }
+  .gold-line-dark {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--gold) / 0.25), transparent);
+  }
+
+  /* Section padding — generous */
+  .section-luxury {
+    @apply px-8 md:px-16 lg:px-32 py-32 md:py-44 relative overflow-hidden;
+  }
+
+  /* Dark section */
+  .section-dark {
+    background: hsl(var(--deep-plum));
+    color: hsl(0 0% 90%);
+  }
+  .section-burgundy {
+    background: hsl(var(--burgundy));
+    color: hsl(0 0% 90%);
+  }
+
+  /* Warm ivory section */
+  .section-ivory {
+    background: hsl(var(--parchment));
+  }
+
+  /* Watermark text */
+  .watermark {
+    @apply absolute font-serif pointer-events-none select-none;
+    color: hsl(var(--gold) / 0.06);
+    font-size: clamp(8rem, 20vw, 25rem);
+    font-weight: 300;
+    line-height: 1;
+  }
+  .watermark-light {
+    @apply absolute font-serif pointer-events-none select-none;
+    color: hsl(0 0% 100% / 0.08);
+    font-size: clamp(8rem, 20vw, 25rem);
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  /* Frosted glass */
+  .glass {
+    background: hsl(var(--background) / 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--warm-border));
+  }
+
+  /* Ticker */
+  .ticker-scroll {
+    animation: ticker 25s linear infinite;
+  }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Marquee — slower */
+  .marquee-scroll {
+    animation: ticker 40s linear infinite;
+  }
+
+  /* Fade up on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger children */
+  .stagger-child {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .stagger-child.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Masonry */
+  .masonry-editorial {
+    columns: 2;
+    column-gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .masonry-editorial {
+      columns: 3;
+      column-gap: 2rem;
+    }
+  }
+  .masonry-editorial > * {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+  }
+
+  /* No scrollbar utility */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Gold dust particles */
+  .gold-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #C9A052;
+    border-radius: 50%;
+    animation: float-particle linear infinite;
+    opacity: 0;
+    box-shadow: 0 0 4px 1px rgba(201, 160, 82, 0.4);
+  }
+  @keyframes float-particle {
+    0% { opacity: 0; transform: translateY(0) scale(0.5); }
+    10% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 0.4; }
+    90% { opacity: 0.1; }
+    100% { opacity: 0; transform: translateY(-100vh) scale(0.8); }
+  }
+
+  /* Mandala spin */
+  @keyframes mandala-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Fade in for hero elements */
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Gold underline on hover */
+  .gold-underline-heading {
+    position: relative;
+    display: inline-block;
+  }
+  .gold-underline-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: hsl(var(--gold));
+    transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .gold-underline-heading:hover::after {
+    width: 100%;
+  }
+
+  /* Ticker glow */
+  .ticker-glow {
+    text-shadow: 0 0 20px rgba(201, 160, 82, 0.4);
+  }
+
+  /* Quiz card selected */
+  .quiz-option-selected {
+    background: hsl(var(--gold)) !important;
+    border-color: hsl(var(--gold)) !important;
+  }
+  .quiz-option-selected span {
+    color: hsl(var(--deep-plum)) !important;
+  }
+
+  /* Gallery overlay from bottom */
+  .gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    transition: height 0.5s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+  }
+  .gallery-item:hover .gallery-overlay {
+    height: 100%;
+  }
+}
+
+/* Page entrance */
+@keyframes page-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+#root {
+  animation: page-enter 0.8s ease-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--parchment));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--gold) / 0.3);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--gold) / 0.5);
+}
+
+/* ===== ADMIN LIGHT MODE OVERRIDES ===== */
+/* Remap ALL text-white/* classes to warm dark tones when .admin-light is applied */
+.admin-light .text-white                { color: hsl(30 20% 10%)  !important; }
+.admin-light .text-white\/90            { color: hsl(30 18% 13%)  !important; }
+.admin-light .text-white\/85            { color: hsl(30 16% 16%)  !important; }
+.admin-light .text-white\/80            { color: hsl(30 15% 18%)  !important; }
+.admin-light .text-white\/75            { color: hsl(30 13% 22%)  !important; }
+.admin-light .text-white\/70            { color: hsl(30 12% 26%)  !important; }
+.admin-light .text-white\/65            { color: hsl(30 10% 32%)  !important; }
+.admin-light .text-white\/60            { color: hsl(30 9%  38%)  !important; }
+.admin-light .text-white\/50            { color: hsl(30 7%  44%)  !important; }
+.admin-light .text-white\/40            { color: hsl(30 6%  50%)  !important; }
+.admin-light .text-white\/30            { color: hsl(30 5%  55%)  !important; }
+.admin-light .text-white\/25            { color: hsl(30 4%  58%)  !important; }
+.admin-light .text-white\/20            { color: hsl(30 3%  62%)  !important; }
+.admin-light .text-white\/15            { color: hsl(30 2%  66%)  !important; }
+.admin-light .text-white\/10            { color: hsl(30 1%  70%)  !important; }
+
+/* Hover state remapping in light mode */
+.admin-light .hover\:text-white:hover       { color: hsl(30 20% 10%)  !important; }
+.admin-light .hover\:text-white\/80:hover   { color: hsl(30 15% 18%)  !important; }
+.admin-light .hover\:text-white\/90:hover   { color: hsl(30 18% 13%)  !important; }
+
+/* Placeholder text */
+.admin-light .placeholder\:text-white\/25::placeholder { color: hsl(30 6% 65%) !important; }
+.admin-light .placeholder\:text-white\/15::placeholder { color: hsl(30 4% 73%) !important; }
+
+/* Table row hover */
+.admin-light .hover\:bg-white\/\[0\.02\]:hover { background-color: rgba(0,0,0,0.03) !important; }
+
+/* Toggle switch off-state (AdminSettings) */
+.admin-light .bg-white\/10  { background-color: hsl(30 10% 80%) !important; }
+.admin-light .bg-white\/60  { background-color: hsl(30 5%  60%) !important; }
+
+/* Select option backgrounds */
+.admin-light select option  { background: #ffffff; color: hsl(30 20% 12%); }
+
+/* ===== ADMIN LIGHT MODE — IMPROVED CONTRAST ===== */
+/* Ensure form labels and secondary text pass WCAG AA */
+.admin-light .text-white\/40 { color: hsl(30 10% 38%) !important; }
+.admin-light .text-white\/30 { color: hsl(30 8% 44%) !important; }
+.admin-light .text-white\/25 { color: hsl(30 7% 48%) !important; }
+.admin-light .text-white\/20 { color: hsl(30 6% 52%) !important; }
+.admin-light .text-white\/15 { color: hsl(30 5% 57%) !important; }
+
+/* Input/textarea text and placeholders in light mode */
+.admin-light input,
+.admin-light textarea,
+.admin-light select {
+  color: hsl(30 20% 12%) !important;
+  background-color: #ffffff !important;
+}
+.admin-light input::placeholder,
+.admin-light textarea::placeholder { color: hsl(30 8% 55%) !important; }
+
+/* ===== ADMIN DARK MODE — CONTRAST IMPROVEMENTS ===== */
+.admin-dark .text-white\/30 { color: rgba(255,255,255,0.65) !important; }
+.admin-dark .text-white\/40 { color: rgba(255,255,255,0.72) !important; }
+.admin-dark .text-white\/25 { color: rgba(255,255,255,0.60) !important; }
+.admin-dark .text-white\/20 { color: rgba(255,255,255,0.55) !important; }
+.admin-dark .text-white\/15 { color: rgba(255,255,255,0.50) !important; }
+
+/* ===== GLOBAL MINIMUM FONT SIZES (Accessibility) ===== */
+/* No text should be below 11px for readability */
+.text-\[9px\]  { font-size: 11px !important; }
+.text-\[10px\] { font-size: 12px !important; }
+.text-\[11px\] { font-size: 12px !important; }
+
+/* ===== DARK SECTIONS — IMPROVED BODY TEXT CONTRAST ===== */
+.section-dark p,
+.section-dark span,
+.section-dark li { color: hsl(0 0% 88%); }
+.section-burgundy p,
+.section-burgundy span,
+.section-burgundy li { color: hsl(0 0% 88%); }

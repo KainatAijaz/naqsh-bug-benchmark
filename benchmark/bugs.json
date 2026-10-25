@@ -1,0 +1,353 @@
+{
+  "app": "Naqsh henna marketplace (fork)",
+  "total_seeded_bugs": 20,
+  "note": "Ground truth for scoring. Keep this file OUT of the folder the testing agent can read.",
+  "bugs": [
+    {
+      "id": "B01",
+      "title": "Cart subtotal undercounts quantities of 3 or more",
+      "category": "Functional",
+      "severity": "high",
+      "difficulty": "medium",
+      "page": "/shop (cart drawer)",
+      "file": "src/contexts/CartContext.tsx",
+      "spec_rule": "R1",
+      "steps_to_trigger": [
+        "Add any product to the cart",
+        "Increase quantity to 3 or more",
+        "Compare line total with Subtotal"
+      ],
+      "expected": "Subtotal = price x quantity (e.g. 3 x $8 = $24)",
+      "actual": "Quantity 3+ is charged as 2 (e.g. 3 x $8 shows $16 subtotal while the line shows $24)",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B02",
+      "title": "Bridal package price uses the wrong multiplier",
+      "category": "Functional",
+      "severity": "medium",
+      "difficulty": "hard",
+      "page": "/artist/:id",
+      "file": "src/pages/ArtistProfile.tsx",
+      "spec_rule": "R2",
+      "steps_to_trigger": [
+        "Open any artist profile",
+        "Read the Bridal package price"
+      ],
+      "expected": "Bridal = price_from x 3.3 rounded to the nearest dollar",
+      "actual": "Bridal = price_from x 3.0",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B03",
+      "title": "Platform commission is 15% instead of 10%",
+      "category": "Functional",
+      "severity": "high",
+      "difficulty": "sneaky",
+      "page": "/admin/earnings",
+      "file": "src/pages/ArtistProfile.tsx",
+      "spec_rule": "R3",
+      "steps_to_trigger": [
+        "Create a booking as a customer",
+        "Open admin earnings and look at the commission for the booking"
+      ],
+      "expected": "commission_amount = 10% of booking_total",
+      "actual": "commission_amount = 15% of booking_total (commission_rate stored as 15)",
+      "detectable_via": "data"
+    },
+    {
+      "id": "B04",
+      "title": "Price sort is descending",
+      "category": "Search/filter",
+      "severity": "medium",
+      "difficulty": "easy",
+      "page": "/artists",
+      "file": "src/pages/ArtistListing.tsx",
+      "spec_rule": "R4",
+      "steps_to_trigger": [
+        "Open the artist list",
+        "Choose 'Price: Low-High'"
+      ],
+      "expected": "Cheapest artist first",
+      "actual": "Most expensive artist first",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B05",
+      "title": "Style filter matches on the last word only",
+      "category": "Search/filter",
+      "severity": "medium",
+      "difficulty": "medium",
+      "page": "/artists",
+      "file": "src/pages/ArtistListing.tsx",
+      "spec_rule": "R4",
+      "steps_to_trigger": [
+        "Open the artist list",
+        "Select the 'Arabic Henna' style pill"
+      ],
+      "expected": "Only artists with specialty 'Arabic Henna'",
+      "actual": "Artists with 'Bridal Henna' (and other '... Henna') also appear",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B06",
+      "title": "'Available today' filter is inverted",
+      "category": "Search/filter",
+      "severity": "medium",
+      "difficulty": "easy",
+      "page": "/artists",
+      "file": "src/pages/ArtistListing.tsx",
+      "spec_rule": "R4",
+      "steps_to_trigger": [
+        "Open the artist list",
+        "Turn on the available-today filter"
+      ],
+      "expected": "Only artists available today",
+      "actual": "Only artists NOT available today",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B07",
+      "title": "Booking accepts a date in the past",
+      "category": "Validation",
+      "severity": "medium",
+      "difficulty": "medium",
+      "page": "/artist/:id",
+      "file": "src/pages/ArtistProfile.tsx",
+      "spec_rule": "R5",
+      "steps_to_trigger": [
+        "Sign in as a customer",
+        "Open an artist profile",
+        "Choose yesterday's date and press Book Now"
+      ],
+      "expected": "Error: choose today or a future date",
+      "actual": "Booking is created",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B08",
+      "title": "Weak passwords accepted at signup",
+      "category": "Validation",
+      "severity": "high",
+      "difficulty": "medium",
+      "page": "/auth",
+      "file": "src/pages/Auth.tsx",
+      "spec_rule": "R6",
+      "steps_to_trigger": [
+        "Open signup",
+        "Enter a password that meets only 1 of the 4 strength rules, e.g. 'aaaaaaaa'"
+      ],
+      "expected": "Rejected with 'Password too weak'",
+      "actual": "Sign-up proceeds",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B09",
+      "title": "Signup does not block mismatched password confirmation",
+      "category": "Validation",
+      "severity": "high",
+      "difficulty": "medium",
+      "page": "/auth",
+      "file": "src/pages/Auth.tsx",
+      "spec_rule": "R6",
+      "steps_to_trigger": [
+        "Open signup",
+        "Enter a strong password and a different confirmation"
+      ],
+      "expected": "Rejected with 'Passwords don't match'",
+      "actual": "Sign-up proceeds (the inline red hint still appears)",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B10",
+      "title": "Review stars shown one fewer than the rating",
+      "category": "Reviews",
+      "severity": "medium",
+      "difficulty": "easy",
+      "page": "/artist/:id",
+      "file": "src/pages/ArtistProfile.tsx",
+      "spec_rule": "R7",
+      "steps_to_trigger": [
+        "Open an artist profile with reviews",
+        "Compare each review's stars with its rating"
+      ],
+      "expected": "A 5-star review shows 5 stars",
+      "actual": "A 5-star review shows 4 stars (1-star stays 1)",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B11",
+      "title": "Review button stays after submitting, allowing duplicate reviews",
+      "category": "Reviews",
+      "severity": "medium",
+      "difficulty": "sneaky",
+      "page": "/dashboard",
+      "file": "src/components/ReviewForm.tsx",
+      "spec_rule": "R7",
+      "steps_to_trigger": [
+        "Sign in as a customer with a completed booking",
+        "Submit a review",
+        "Look at the booking card without refreshing"
+      ],
+      "expected": "Review button replaced by 'Reviewed'",
+      "actual": "Review button still shown until a full page refresh; a second review can be submitted",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B12",
+      "title": "Rating on artist cards is rounded up",
+      "category": "Reviews",
+      "severity": "low",
+      "difficulty": "medium",
+      "page": "/artists",
+      "file": "src/pages/ArtistListing.tsx",
+      "spec_rule": "R8",
+      "steps_to_trigger": [
+        "Open the artist list",
+        "Find an artist rated 4.6 (or any non-integer rating)"
+      ],
+      "expected": "Shows 4.6",
+      "actual": "Shows 5",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B13",
+      "title": "Un-favoriting an artist does nothing",
+      "category": "State/flow",
+      "severity": "medium",
+      "difficulty": "medium",
+      "page": "/artists",
+      "file": "src/hooks/useFavorites.ts",
+      "spec_rule": "R9",
+      "steps_to_trigger": [
+        "Sign in",
+        "Click the heart on an artist twice",
+        "Refresh the page"
+      ],
+      "expected": "Second click removes the favorite",
+      "actual": "Artist stays favorited",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B14",
+      "title": "Adding a favorite fails silently",
+      "category": "Console/network",
+      "severity": "medium",
+      "difficulty": "sneaky",
+      "page": "/artists",
+      "file": "src/hooks/useFavorites.ts",
+      "spec_rule": "R9",
+      "steps_to_trigger": [
+        "Sign in",
+        "Click the heart on an artist",
+        "Watch the network tab and console"
+      ],
+      "expected": "Heart fills and the favorite is saved",
+      "actual": "Request to Supabase returns an error, console shows it, the user sees no message and nothing is saved",
+      "detectable_via": "network"
+    },
+    {
+      "id": "B15",
+      "title": "Cart is lost on page refresh",
+      "category": "State/flow",
+      "severity": "medium",
+      "difficulty": "medium",
+      "page": "/shop",
+      "file": "src/contexts/CartContext.tsx",
+      "spec_rule": "R10",
+      "steps_to_trigger": [
+        "Add a product to the cart",
+        "Refresh the page",
+        "Open the cart"
+      ],
+      "expected": "Cart still contains the product",
+      "actual": "Cart is empty",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B16",
+      "title": "Order total ignores quantity at checkout",
+      "category": "Payments",
+      "severity": "high",
+      "difficulty": "sneaky",
+      "page": "/admin/orders",
+      "file": "supabase/functions/create-checkout/index.ts",
+      "spec_rule": "R11",
+      "steps_to_trigger": [
+        "Add 3 of one product to the cart",
+        "Press checkout",
+        "Open admin orders and look at the new order's total"
+      ],
+      "expected": "total = price x quantity",
+      "actual": "total = price (quantity ignored)",
+      "detectable_via": "data"
+    },
+    {
+      "id": "B17",
+      "title": "Book Now button hidden on mobile widths",
+      "category": "UI",
+      "severity": "high",
+      "difficulty": "medium",
+      "page": "/artist/:id",
+      "file": "src/pages/ArtistProfile.tsx",
+      "spec_rule": "R12",
+      "steps_to_trigger": [
+        "Open an artist profile at 375px width",
+        "Look for the Book Now button"
+      ],
+      "expected": "Book Now visible",
+      "actual": "Book Now hidden below 640px",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B18",
+      "title": "Shop product cards overflow on mobile",
+      "category": "UI",
+      "severity": "medium",
+      "difficulty": "easy",
+      "page": "/shop",
+      "file": "src/pages/Shop.tsx",
+      "spec_rule": "R12",
+      "steps_to_trigger": [
+        "Open the shop at 375px width"
+      ],
+      "expected": "No horizontal scrolling",
+      "actual": "Cards are 420px wide and the page scrolls sideways",
+      "detectable_via": "ui"
+    },
+    {
+      "id": "B19",
+      "title": "Portfolio images have no alt attribute",
+      "category": "Accessibility",
+      "severity": "medium",
+      "difficulty": "medium",
+      "page": "/artist/:id",
+      "file": "src/pages/ArtistProfile.tsx",
+      "spec_rule": "R13",
+      "steps_to_trigger": [
+        "Open an artist profile with a portfolio",
+        "Inspect the portfolio images"
+      ],
+      "expected": "Each image has a meaningful alt",
+      "actual": "alt attribute missing",
+      "detectable_via": "a11y"
+    },
+    {
+      "id": "B20",
+      "title": "Signup email label is not linked to its input",
+      "category": "Accessibility",
+      "severity": "low",
+      "difficulty": "sneaky",
+      "page": "/auth",
+      "file": "src/pages/Auth.tsx",
+      "spec_rule": "R13",
+      "steps_to_trigger": [
+        "Open signup",
+        "Click the 'Email Address' label or inspect label/for"
+      ],
+      "expected": "Label focuses the email input",
+      "actual": "Label points to a non-existent id, so the input has no accessible name from it",
+      "detectable_via": "a11y"
+    }
+  ]
+}

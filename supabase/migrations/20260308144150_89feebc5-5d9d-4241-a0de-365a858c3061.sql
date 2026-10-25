@@ -1,0 +1,1 @@
+ALTER TABLE public.artists ADD COLUMN whatsapp_api_key text;

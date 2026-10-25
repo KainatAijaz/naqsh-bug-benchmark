@@ -12,5 +12,6 @@ If the agent reports one of them it is scored as an **unseeded finding** (a real
 | U5 | Checkout takes unit prices from the browser (kept simple for the Stripe test-mode benchmark); a real system must price server-side | `create-checkout` |
 | U6 | A failed order insert during checkout is logged but the Stripe session is still created | `create-checkout` |
 | U7 | Both artist payment types record `amount: 50` regardless of the configured fee | `create-artist-payment` |
+| U8 | Booking form fields (Package, Date, Occasion) are not programmatically linked to their labels (found by the agent in run 1; verify before counting) | `ArtistProfile.tsx` |
 
 Add every new real defect the agent finds to this list after manual verification.

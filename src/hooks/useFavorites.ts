@@ -39,12 +39,15 @@ export const useToggleFavorite = () => {
           .eq("artist_id", artistId);
         if (error) throw error;
       } else {
+        // B14: with the bug, saving a SECOND favorite sends a wrong column name (first one works,
+        // so B13 stays reachable); the error is swallowed (console only, no UI feedback)
+        const existing = (queryClient.getQueryData(["favorites", user.id]) as string[] | undefined) ?? [];
+        const b14Active = isBug("B14") && existing.length >= 1;
         const { error } = await supabase
           .from("favorites" as any)
-          .insert((isBug("B14") ? { user_id: user.id, artist: artistId } : { user_id: user.id, artist_id: artistId }) as any);
+          .insert((b14Active ? { user_id: user.id, artist: artistId } : { user_id: user.id, artist_id: artistId }) as any);
         if (error) {
-          // B14: with the bug the request fails and the error is swallowed (console only, no UI feedback)
-          if (isBug("B14")) {
+          if (b14Active) {
             console.error(error);
             return;
           }

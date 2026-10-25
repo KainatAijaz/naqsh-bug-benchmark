@@ -230,7 +230,7 @@
     },
     {
       "id": "B14",
-      "title": "Adding a favorite fails silently",
+      "title": "Adding a second favorite fails silently",
       "category": "Console/network",
       "severity": "medium",
       "difficulty": "sneaky",
@@ -239,7 +239,8 @@
       "spec_rule": "R9",
       "steps_to_trigger": [
         "Sign in",
-        "Click the heart on an artist",
+        "Click the heart on one artist (works)",
+        "Click the heart on a second artist",
         "Watch the network tab and console"
       ],
       "expected": "Heart fills and the favorite is saved",
